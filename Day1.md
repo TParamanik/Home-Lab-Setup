@@ -2,11 +2,11 @@
 
 ## 1. Installation Summary
 
-    -> Installed Kali Linux, Windows 10, and Ubuntu in VMware.
+-> Installed Kali Linux, Windows 10, and Ubuntu in VMware.
 
-    -> All set to NAT mode for internet + inter-VM communication(Host-only).
+-> All set to NAT mode for internet + inter-VM communication(Host-only).
 
-    -> Error Resolving:
+-> Error Resolving:
 
 ## 2. Network Auto-Configuration
 

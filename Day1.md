@@ -1,4 +1,4 @@
-#**Day 1 – VM Installation & Networking Progress**
+# **Day 1 – VM Installation & Networking Progress**
 
 1. Installation Summary
 

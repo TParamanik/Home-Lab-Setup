@@ -1,25 +1,89 @@
-Tasks Completed
+**Day 1 – VM Installation & Networking Progress**
 
-Installed Kali Linux, Parrot OS, and Windows 10 in VirtualBox.
+Installation Steps 
 
-Configured network adapters (NAT + Host-Only).
+🔹 Kali Linux
 
-Fixed network issues (DNS resolution, IPv6).
+Installed using Debian 11.x (64-bit) version in VMware.
 
-Verified internet connectivity on all VMs.
+Assigned 30 GB disk (split into multiple files).
 
-Successfully tested ping communication:
+Default desktop environment selected (gdm3).
 
-Kali ↔ Parrot
+🔹 Windows 10
 
-Kali ↔ Windows
+Installed via VMware with 2 GB RAM.
 
-Parrot ↔ Windows
+Disabled extra taskbar items (like News) later for a clean environment.
 
-Notes
+🔹 Ubuntu
 
-Initial DNS errors in Kali were resolved by disabling IPv6 and setting DNS manually.
+Installed using Interactive Installation.
 
-Windows Firewall blocked ICMP (ping); allowed inbound ICMP via firewall rule.
+Selected Install third-party software (graphics, Wi-Fi, media formats).
 
-All three systems can now communicate with each other.
+Hostname customized after installation:
+
+sudo hostnamectl set-hostname ubuntu-lab
+hostname
+
+🌐 2. Network Configuration
+🔹 VMware Network Mode
+
+Set all VMs to NAT → allows:
+
+Internet access.
+
+Inter-VM communication.
+
+🔹 Kali Linux Networking
+
+At first, only eth0 had internet.
+
+Added DHCP to eth1:
+
+sudo dhclient eth1
+
+
+Confirmed IPs using:
+
+ip a
+
+🔹 Ubuntu Networking
+
+Interfaces showed as ens33 and ens37.
+
+Checked IPs with:
+
+ip a
+
+
+Applied netplan after adjusting permissions:
+
+sudo chmod 600 /etc/netplan/*.yaml
+sudo netplan apply
+
+🔒 3. Firewall Rules (Windows 10)
+
+Instead of disabling firewall, allowed ICMP (Ping) with:
+
+netsh advfirewall firewall add rule name="ICMPv4-In" protocol=icmpv4:8,any dir=in action=allow
+
+📡 4. Connectivity Test (Ping)
+
+From Windows → Ping Kali’s eth1 IP:
+
+ping 192.168.xxx.xxx
+
+
+From Ubuntu → Ping Windows:
+
+ping 192.168.xxx.xxx
+
+
+From Kali → Ping Ubuntu:
+
+ping 192.168.xxx.xxx
+
+
+✅ All machines successfully communicated with each other.

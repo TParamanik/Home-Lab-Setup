@@ -60,14 +60,14 @@ netsh advfirewall firewall add rule name="ICMPv4-In" protocol=icmpv4:8,any dir=i
 
 ## 3. Connectivity Test
 
-Ping from Windows → Kali ✅
+- Ping from Windows → Kali ✅
 
-Ping from Ubuntu → Windows ✅
+- Ping from Ubuntu → Windows ✅
 
-Ping from Kali → Ubuntu ✅
+- Ping from Kali → Ubuntu ✅
 
 
-## ⚡ End of Day Summary:
+## 4. End of Day Summary:
 
 - Installed and configured 3 VMs.
 

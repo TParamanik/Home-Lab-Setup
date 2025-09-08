@@ -1,89 +1,79 @@
 **Day 1 – VM Installation & Networking Progress**
 
-Installation Steps 
+1. Installation Summary
 
-🔹 Kali Linux
+-> Installed Kali Linux, Windows 10, and Ubuntu in VMware.
 
-Installed using Debian 11.x (64-bit) version in VMware.
+-> All set to NAT mode for internet + inter-VM communication(Host-only).
 
-Assigned 30 GB disk (split into multiple files).
+-> Error Resolving:
 
-Default desktop environment selected (gdm3).
+2. Network Auto-Configuration
 
-🔹 Windows 10
+*Kali Linux*
 
-Installed via VMware with 2 GB RAM.
+-> Configured eth0 and eth1 for automatic IP assignment.
 
-Disabled extra taskbar items (like News) later for a clean environment.
+-> Edited /etc/network/interfaces:
 
-🔹 Ubuntu
+```bash 
+auto eth0
+iface eth0 inet dhcp
 
-Installed using Interactive Installation.
+auto eth1
+iface eth1 inet dhcp
+```
+-> Restarted networking:
 
-Selected Install third-party software (graphics, Wi-Fi, media formats).
+```bash
+sudo systemctl restart networking
+```
 
-Hostname customized after installation:
+*Ubuntu*
 
-sudo hostnamectl set-hostname ubuntu-lab
-hostname
+-> Configured ens33 and ens37 for auto DHCP via netplan.
 
-🌐 2. Network Configuration
-🔹 VMware Network Mode
+-> Edited /etc/netplan/01-netcfg.yaml
 
-Set all VMs to NAT → allows:
+```bash
+network:
+  version: 2
+  ethernets:
+    ens33:
+      dhcp4: true
+    ens37:
+      dhcp4: true
 
-Internet access.
+```
+-> Applied netplan after adjusting permissions:
 
-Inter-VM communication.
-
-🔹 Kali Linux Networking
-
-At first, only eth0 had internet.
-
-Added DHCP to eth1:
-
-sudo dhclient eth1
-
-
-Confirmed IPs using:
-
-ip a
-
-🔹 Ubuntu Networking
-
-Interfaces showed as ens33 and ens37.
-
-Checked IPs with:
-
-ip a
-
-
-Applied netplan after adjusting permissions:
-
+```bash
 sudo chmod 600 /etc/netplan/*.yaml
 sudo netplan apply
+```
 
-🔒 3. Firewall Rules (Windows 10)
+*Windows 10(Firewall)*
 
-Instead of disabling firewall, allowed ICMP (Ping) with:
+->Allowed inbound ICMP (Ping) instead of disabling firewall:
 
+```bash
 netsh advfirewall firewall add rule name="ICMPv4-In" protocol=icmpv4:8,any dir=in action=allow
+```
 
-📡 4. Connectivity Test (Ping)
+3. Connectivity Test
 
-From Windows → Ping Kali’s eth1 IP:
+Ping from Windows → Kali ✅
 
-ping 192.168.xxx.xxx
+Ping from Ubuntu → Windows ✅
 
+Ping from Kali → Ubuntu ✅
 
-From Ubuntu → Ping Windows:
+⚡ End of Day Summary:
 
-ping 192.168.xxx.xxx
+- Installed and configured 3 VMs.
 
+- Added auto DHCP network configs in Kali + Ubuntu.
 
-From Kali → Ping Ubuntu:
+- Configured Windows firewall properly for ping.
 
-ping 192.168.xxx.xxx
-
-
-✅ All machines successfully communicated with each other.
+- Verified full connectivity with ping tests.

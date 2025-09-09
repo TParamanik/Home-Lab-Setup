@@ -30,3 +30,7 @@ Target OS: Kali
     kali@kali-virtual:~ kali is the username we will be using .
     - And for the ip address we will be using the command ifconfig, 
     there the ipv4 of eth1 is what we will be using as target_ip
+
+    -> Then we will be asked to enter the password and we get the access to Kali
+
+-Once we get access to the target machine terminal, we can execute any command that we usually run in kali from ubuntu terminal. 

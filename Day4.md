@@ -1,4 +1,4 @@
-# Day 4 - 
+# Day 4 - Fail2ban Setup and SSH Protection
 
 Source VM - Ubuntu
 

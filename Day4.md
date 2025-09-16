@@ -4,6 +4,8 @@ Source VM - Ubuntu
 
 Target VM - Kali
 
+-> Create a wordlist.txt with possible passwords in source VM
+
 -> Installed hydra tool and used the below command to check if I can attack the target machine. Attack was successful.
 
 ```bash
@@ -17,12 +19,12 @@ sudo journalctl -u ssh --since "1 hour ago" | grep -E "Failed password|Accepted 
 ```
 
 -> Using Fail2ban to ban attacker IP
-- Installed fail2ban in Kali to check for login attempts. 
+- Installed fail2ban in target VM to check for login attempts. 
 ```bash
 apt install -y fail2ban
 ```
 
-- Create Jail Local COnfiguration 
+- Create Jail Local Configuration 
 ```bash
 nano /etc/fail2ban/jail.local
 ```
@@ -34,7 +36,17 @@ enabled = true
 port    = ssh
 logpath = %(sshd_log)s
 maxretry = 3
-bantime = 10m
+bantime = 1m
 findtime = 10m
 ```
 
+- enable and restart fail2ban
+```bash
+systemctl restart fail2ban
+systemctl enable fail2ban
+```
+
+- check the status before and after running hydra in source vm
+```bash
+fail2ban-client status sshd
+```

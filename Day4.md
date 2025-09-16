@@ -17,24 +17,24 @@ sudo journalctl -u ssh --since "1 hour ago" | grep -E "Failed password|Accepted 
 ```
 
 -> Using Fail2ban to ban attacker IP
-    - Installed fail2ban in Kali to check for login attempts. 
-    ```bash
-    apt install -y fail2ban
-    ```
-    
-    - Create Jail Local COnfiguration 
-    ```bash
-    nano /etc/fail2ban/jail.local
-    ```
+- Installed fail2ban in Kali to check for login attempts. 
+```bash
+apt install -y fail2ban
+```
 
-    - Add the following content
-    ```bash
-    [sshd]
-    enabled = true
-    port    = ssh
-    logpath = %(sshd_log)s
-    maxretry = 3
-    bantime = 10m
-    findtime = 10m
-    ```
+- Create Jail Local COnfiguration 
+```bash
+nano /etc/fail2ban/jail.local
+```
+
+- Add the following content
+```bash
+[sshd]
+enabled = true
+port    = ssh
+logpath = %(sshd_log)s
+maxretry = 3
+bantime = 10m
+findtime = 10m
+```
 
